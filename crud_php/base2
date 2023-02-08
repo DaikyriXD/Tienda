@@ -1,0 +1,105 @@
+CREATE TABLE ciudades(
+	cod_ciu serial NOT NULL PRIMARY KEY,
+	nombre VARCHAR(55) NOT NULL
+);
+CREATE TABLE usuarios(
+    id SERIAL PRIMARY KEY,
+    usuario VARCHAR(150) NOT NULL,
+	contraseña VARCHAR (150) NOT NULL,
+	rol VARCHAR(1),
+    identificacion INTEGER ,
+	nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+	telefono BIGINT NOT NULL,
+	direccion VARCHAR(100) NOT NULL,
+	cod_ciu INT2 NOT NULL,
+	UNIQUE(identificacion),
+    UNIQUE(usuario),
+
+	FOREIGN KEY (cod_ciu) REFERENCES ciudades(cod_ciu)
+	
+);
+CREATE TABLE ventas(
+	cod_fac serial NOT NULL PRIMARY KEY,
+	fecha DATE NOT NULL,
+	metodo_pago VARCHAR(30) NOT NULL,
+	usuario VARCHAR(150),
+	UNIQUE(usuario),
+	FOREIGN KEY (usuario) REFERENCES usuarios(usuario)	
+);
+
+CREATE TABLE categorias(
+	id serial NOT NULL PRIMARY KEY,
+	categoria VARCHAR(30) NOT NULL,
+	descripcion VARCHAR(55),
+	UNIQUE(id)
+
+);
+CREATE TABLE productos(
+	id serial NOT NULL PRIMARY KEY,
+	nombre VARCHAR(55) NOT NULL,
+	descripcion VARCHAR(100),
+	precio NUMERIC NOT NULL,
+	cantidad INTEGER,
+	id_cat INT2 NOT NULL,
+    imagen VARCHAR(255),
+	UNIQUE(id),
+	FOREIGN KEY(id_cat) REFERENCES categoria(id)	
+);
+CREATE TABLE detalle(
+	cod_fac INT2 NOT NULL, 
+	id_prod INT2 NOT NULL,
+	cantidad INT2 NOT NULL,
+	total_cal NUMERIC NOT NULL,
+	estado VARCHAR(55) NOT NULL,
+	PRIMARY KEY (cod_fac, id_prod),
+	UNIQUE(cod_fac, id_prod),
+	FOREIGN KEY (cod_fac) REFERENCES ventas(cod_fac),
+	FOREIGN KEY (id_prod) REFERENCES productos(id)
+);
+
+CREATE TABLE log (
+  id SERIAL PRIMARY KEY,
+  fecha DATE,
+  hora TIME,
+  usuario VARCHAR(150),
+  accion VARCHAR(150),
+  FOREIGN KEY (usuario) REFERENCES usuarios(usuario),
+  UNIQUE(id)
+);
+INSERT INTO ciudades(nombre) VALUES
+('Villavicencio'),
+('Acacias'),
+('Restrepo'),
+('Bogota'),
+('Cali'),
+('Medellin'),
+('Bucaramanga');
+
+INSERT INTO usuarios(usuario,contraseña,rol,identificacion,nombre,apellido,telefono,direccion,cod_ciu)
+ VALUES ('dajham','1234','A',1192918614,'Andres','Buitrago',3113673389,'call 59',1);
+
+ INSERT INTO usuarios(usuario,contraseña,rol,identificacion,nombre,apellido,telefono,direccion,cod_ciu)
+ VALUES ('david','1234','C',1192008512,'David','Ruiz',3103655389,'av 40',2);
+
+ INSERT INTO usuarios(usuario,contraseña,rol,identificacion,nombre,apellido,telefono,direccion,cod_ciu)
+ VALUES ('juan','1234','C',1100291861,'Juan','Quijano',31213644310,'diagonal-28',3);
+
+ INSERT INTO categoria(categoria) VALUES 
+('Tecnologia'),
+('Mercado'),
+('Muebles'),
+('Ropa');
+
+ INSERT INTO productos (nombre, descripcion, precio,cantidad,id_cat,imagen) VALUES
+('MacBook 14"','Computadora Apple SSD 512GB',2160000,12,1,'20211210162502.jpg'),
+('Victus Hp 15"','Portatil Gamer AMD Ryzen 5',620000,20,1,'20211211192037.jpg'),
+('All in One Lenovo','Commputador de escritorio 23" AMD Ryzen 7',850000,16,1,'20211211212315.jpg'),
+('iPhone 11','Celular Apple 128GB Blanco',3500000,15,1,'20211211212449.jpg'),
+('Redmi Note11','Celular Xiaomi 128GG Ram 4GB Azul',130000,26,1,'20211212083037.jpg'),
+('Vino','Vino Blanco',28000,12,2,'20211212082421.jpg'),
+('Coca cola','400 ml',6500,23,2,'20211212082628.jpg'),
+('Escritorio','Escritorio de oficina acabado Premium',230000,6,3,'20211212082759.jpg'),
+('Abrigo infantil','Abrigo gris para niños',80000,26,4,'20211212083037.jpg');
+
+
