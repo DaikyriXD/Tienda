@@ -1,4 +1,12 @@
-<?php require_once "config/connection.php"; ?>
+
+<?php
+require_once "config/connection.php";
+session_start(); 
+// Función que me conecta a la base de datos que está en config/connection.php
+require_once "config/connection.php";
+require_once "config/config.php";
+//Función que me permite usar las variables de sesión
+?>
 <!DOCTYPE html>
 <html lang="en">
 

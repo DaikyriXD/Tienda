@@ -58,8 +58,8 @@ include("includes/header.php"); ?>
                                 <form method="post" action="eliminar.php?accion=pro&id=<?php echo $data['id']; ?>" class="d-inline eliminar">
                                     <button class="btn btn-danger" type="submit">Eliminar</button>
                                 </form>
-                                <form method="post"  action="editar.php?accion=pro&id=<?php echo $data['id'], "abrirProducto"; ?>" class="d-inline">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">Editar</button>
+                                <form method="post" action="editar.php?accion=pro&id=<?php echo $data['id']; ?>" class="">
+                                    <button class="btn btn-primary" type="submit">Editar</button>
                                 </form>
                             </td>
                         </tr>

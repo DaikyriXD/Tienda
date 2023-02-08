@@ -1,15 +1,16 @@
-<?php 
+<?php
+session_start(); 
+// Función que me conecta a la base de datos que está en config/connection.php
 require_once "config/connection.php";
 require_once "config/config.php";
-session_start();
+//Función que me permite usar las variables de sesión
 if (!isset($_SESSION['email'])) {
-header("Location: inicio.php");
+  header('Location: inicio.php');
 }
 
 $email = $_SESSION['email'];
 
-
-$query = "SELECT usuario.identificacion, usuario.nombre, usuario.apellido, usuario.telefono, usuario.direccion ciudades.nombre FROM usuario
+$query = "SELECT usuario.nombre, usuario.apellido, usuario.telefono, ciudades.nombre as nombre_ciu FROM usuario
 JOIN ciudades ON usuario.cod_ciu = ciudades.cod_ciu
 WHERE usuario.email = '$email'";
 $result = pg_query($conn, $query);
